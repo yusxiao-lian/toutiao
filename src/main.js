@@ -3,8 +3,13 @@ import App from './App.vue'
 
 // 引入路由router
 import router from '@/router/index.js'
+
 // 初始化样式
 import '@/styles/reset.css'
+
+// 引入vant
+import { Toast } from 'vant'
+Vue.use(Toast)
 
 Vue.config.productionTip = false
 
