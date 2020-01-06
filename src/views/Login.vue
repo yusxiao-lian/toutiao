@@ -61,7 +61,12 @@ export default {
         if (result.data.message === '用户不存在') {
           this.$toast.fail(result.data.message)
         } else {
-          this.$router.push({ name: 'Personal' })
+          // console.log(result)
+          // 存token
+          localStorage.setItem('user_token', result.data.data.token)
+          // 存用户信息
+          localStorage.setItem('user_info', JSON.stringify(result.data.data.user))
+          this.$router.push({ path: `/personal/${result.data.data.user.id}` })
         }
       } else {
         this.$toast.fail({

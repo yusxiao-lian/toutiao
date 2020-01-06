@@ -2,10 +2,29 @@
 import axios from '@/utils/myaxios.js'
 
 // 暴露
+// 登陆
 export const login = (data) => {
   return axios({
     method: 'post',
     url: '/login',
+    data: data
+  })
+}
+
+// 根据id获取用户信息
+export const getUserById = (id) => {
+  return axios({
+    url: `/user/${id}`
+    // 去拦截器配置请求头
+    // headers: { 'Authorization': localStorage.getItem('user_token') }
+  })
+}
+
+// 更新个人信息
+export const updateUserInfo = (id, data) => {
+  return axios({
+    method: 'post',
+    url: `/user_update/${id}`,
     data: data
   })
 }

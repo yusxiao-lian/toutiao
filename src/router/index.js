@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 // 引入组件
 import login from '@/views/Login.vue'
 import personal from '@/views/Personal.vue'
+import editPersonal from '@/views/editPersonal.vue'
 // 使用路由
 Vue.use(VueRouter)
 
@@ -17,10 +18,31 @@ let router = new VueRouter({
     },
     {
       name: 'Personal',
-      path: '/personal',
+      path: '/personal/:id',
       component: personal
+    },
+    {
+      name: 'EditPersonal',
+      path: '/editPersonal/:id',
+      component: editPersonal
     }
   ]
+})
+
+// 添加导航守卫，每次路由跳转的请求都会经过导航守卫
+// beforeEach前置守卫，跳转之前会调用
+router.beforeEach((to, from, next) => {
+  // to:跳去哪  next进行下一步的操作，必须要有next才能执行
+  if (to.path.indexOf('/personal') === 0) {
+    let token = localStorage.getItem('user_token')
+    if (token) {
+      next()
+    } else {
+      next({ name: 'Login' })
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

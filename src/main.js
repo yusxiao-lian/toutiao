@@ -8,8 +8,10 @@ import router from '@/router/index.js'
 import '@/styles/reset.css'
 
 // 引入vant
-import { Toast } from 'vant'
-Vue.use(Toast)
+import { Toast, Uploader } from 'vant'
+
+Vue.use(Uploader)
+  .use(Toast)
 
 Vue.config.productionTip = false
 
