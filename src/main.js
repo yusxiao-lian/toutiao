@@ -8,7 +8,7 @@ import router from '@/router/index.js'
 import '@/styles/reset.css'
 
 // 引入vant
-import { Toast, Uploader, Dialog, Field, Picker, Icon, Tab, Tabs } from 'vant'
+import { Toast, Uploader, Dialog, Field, Picker, Icon, Tab, Tabs, List, PullRefresh } from 'vant'
 
 // 全局注册
 
@@ -20,6 +20,8 @@ Vue.use(Uploader)
   .use(Icon)
   .use(Tab)
   .use(Tabs)
+  .use(List)
+  .use(PullRefresh)
 Vue.config.productionTip = false
 
 new Vue({
