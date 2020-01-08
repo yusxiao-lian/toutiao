@@ -17,7 +17,7 @@
     <mycell title="我的跟帖" desc="跟帖/回复"></mycell>
     <mycell title="我的收藏" desc="文章/视频"></mycell>
     <mycell title="设置"></mycell>
-    <mybutton class="btn">退出</mybutton>
+    <mybutton class="btn" @click="exit">退出</mybutton>
   </div>
 </template>
 
@@ -41,6 +41,15 @@ export default {
     if (result.data.message === '获取成功') {
       this.currentUser = result.data.data
       this.currentUser.head_img = 'http://127.0.0.1:3000' + this.currentUser.head_img
+    }
+  },
+  methods: {
+    exit () {
+      if (confirm('确认退出?')) {
+        localStorage.removeItem('user_token')
+        this.$toast.success('退出成功')
+        this.$router.push({ name: 'Index' })
+      }
     }
   }
 }

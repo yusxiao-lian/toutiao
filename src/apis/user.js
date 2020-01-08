@@ -28,3 +28,12 @@ export const updateUserInfo = (id, data) => {
     data: data
   })
 }
+
+// 用户注册
+export const register = (data) => {
+  return axios({
+    method: 'post',
+    url: '/register',
+    data: data
+  })
+}

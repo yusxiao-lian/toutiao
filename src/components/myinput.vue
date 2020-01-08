@@ -13,7 +13,7 @@ export default {
   },
   props: ['value', 'bgc', 'rules', 'tips'],
   methods: {
-    // 当input发生改变时的操作
+    // 当input发生改变时的操作,改变样式提示用户
     handlemyinput (event) {
       let value = event.target.value
       if (this.rules && this.rules.test(value)) {

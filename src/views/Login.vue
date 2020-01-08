@@ -15,7 +15,7 @@
       </div>
       <p class="tips">
         没有账号？
-        <a href="#/register" class="">去注册</a>
+        <a href="#/register" class="" >去注册</a>
       </p>
      <mybutton @click="login">登陆</mybutton>
      <!-- <van-button type="primary">vant按钮</van-button> -->
@@ -87,7 +87,7 @@ export default {
     background: #757575;
 }
 .container {
-  padding: 20px;
+  padding: 10px;
   background: #f2f2f2;
 }
 

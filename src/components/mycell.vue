@@ -1,5 +1,5 @@
 <template>
-  <div class="cell" :class="{'gray': bgc === 'gray'}">
+  <div class="cell" :class="{'gray': bgc === 'gray'}" @click="handlecell">
       <div class="lef">{{title}}</div>
       <div class="right">{{type==='password'?'********':desc}}<span class="iconfont iconjiantou1"></span></div>
   </div>
@@ -7,7 +7,12 @@
 
 <script>
 export default {
-  props: ['title', 'desc', 'bgc', 'type']
+  props: ['title', 'desc', 'bgc', 'type'],
+  methods: {
+    handlecell (event) {
+      this.$emit('click', event)
+    }
+  }
 }
 </script>
 
