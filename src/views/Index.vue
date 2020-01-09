@@ -17,9 +17,13 @@
       <div class="nav">
         <van-tabs v-model="active" sticky swipeable>
           <van-tab :title="category.name" v-for="category in categoryList" :key="category.id">
+            <!-- // 上拉加载 -->
             <van-list v-model="category.loading" :immediate-check="false" :finished="category.finished"  finished-text="没有更多了" :offset="10" @load="onLoad">
-              <!-- 数据列表 -->
-              <articleBlock  v-for="item in category.postList" :key="item.id" :postList="item"></articleBlock>
+              <!-- 下拉刷新 -->
+              <van-pull-refresh v-model="category.isLoading" @refresh="onRefresh">
+                <!-- 数据列表 -->
+                <articleBlock v-for="item in category.postList" :key="item.id" :postList="item" @click="$router.push({path:`/articleDetail/${item.id}`})" ></articleBlock>
+              </van-pull-refresh>
             </van-list>
           </van-tab>
         </van-tabs>
@@ -48,7 +52,10 @@ export default {
   watch: {
     active () {
       // console.log(this.active)
-      this.init()
+      // 如果之前已经有数据则不需要重复加载，没有才需要进行数据加载
+      if (this.categoryList[this.active].postList.length === 0) {
+        this.init()
+      }
     }
   },
   async mounted () {
@@ -66,7 +73,8 @@ export default {
         pageIndex: 1, // 显示的当前页
         pageSize: 5, // 每页所显示条数
         loading: false,
-        finished: false
+        finished: false,
+        isLoading: false
       }
     })
     console.log(this.categoryList)
@@ -103,9 +111,22 @@ export default {
     // console.log(this.categoryList[this.active].postList)
     onLoad () {
       this.categoryList[this.active].pageIndex++
-      setTimeout(() => {
-        this.init()
-      }, 2000)
+      // 加延迟刷新太快会报错,为了效果加延迟，实际没必要
+      // setTimeout(() => {
+      this.init()
+      // }, 2000)
+    },
+    // 下拉刷新
+    onRefresh () {
+      // 重置数据
+      this.categoryList[this.active].pageIndex = 1
+      this.categoryList[this.active].postList.length = 0
+      this.init()
+      if (this.categoryList[this.active].isLoading) {
+        this.categoryList[this.active].isLoading = false
+      }
+      // 将整个页面的加载状态重置，改成为加载完成
+      this.categoryList[this.active].finished = false
     }
   }
 }

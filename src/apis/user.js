@@ -37,3 +37,24 @@ export const register = (data) => {
     data: data
   })
 }
+
+// 关注用户
+export const followUser = (id) => {
+  return axios({
+    url: `/user_follows/${id}`
+  })
+}
+
+// 取消关注
+export const unfollowUser = (id) => {
+  return axios({
+    url: `/user_unfollow/${id}`
+  })
+}
+
+// 用户关注列表
+export const getUserFollows = () => {
+  return axios({
+    url: '/user_follows'
+  })
+}

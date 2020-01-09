@@ -1,6 +1,6 @@
 <template>
   <!-- 左右结构的单图文章 -->
-  <div class="single" v-if="postList.cover.length<=2 && postList.type===1">
+  <div class="single" v-if="postList.cover.length<=2 && postList.type===1" @click="handleClick">
       <div class="left">
           <p class="content">{{postList.title}}</p>
           <p class="info">
@@ -11,7 +11,7 @@
       <img :src="postList.cover[0].url" alt="">
   </div>
   <!-- 带视频的文章 -->
-  <div class="singlevideo" v-else-if="postList.type===2">
+  <div class="singlevideo" v-else-if="postList.type===2" @click="handleClick">
       <div class="content">{{postList.title}}</div>
       <div class="player">
           <img :src="postList.cover[0].url" alt="">
@@ -25,7 +25,7 @@
       </p>
   </div>
   <!-- 左右多图文章 -->
-  <div class="singlethree" v-else-if="postList.type===1 && postList.cover.length>=3">
+  <div class="singlethree" v-else-if="postList.type===1 && postList.cover.length>=3" @click="handleClick">
       <div class="content">{{postList.title}}</div>
       <div class="imgs">
           <img :src="item.url" alt="" v-for="item in postList.cover" :key="item.id">
@@ -39,7 +39,12 @@
 
 <script>
 export default {
-  props: ['postList']
+  props: ['postList'],
+  methods: {
+    handleClick (event) {
+      this.$emit('click', event)
+    }
+  }
 }
 </script>
 

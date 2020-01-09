@@ -15,3 +15,24 @@ export const getArticleById = (id) => {
     url: `/post/${id}`
   })
 }
+
+// 点赞和取消点赞
+export const likeArticle = (id) => {
+  return axios({
+    url: `/post_like/${id}`
+  })
+}
+
+// 收藏文章
+export const starArticle = (id) => {
+  return axios({
+    url: `/post_star/${id}`
+  })
+}
+
+// 收藏文章列表
+export const starArticleList = () => {
+  return axios({
+    url: '/user_star'
+  })
+}
