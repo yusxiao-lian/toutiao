@@ -15,7 +15,7 @@
           <span @click="replycomment(item)">回复</span>
         </div>
         <!-- 递归评论 -->
-        <commentItem v-if="item.parent" :parent="item.parent"></commentItem>
+        <commentItem @replycomment="replycomment" v-if="item.parent" :parent="item.parent"></commentItem>
         <div class="text">{{item.content}}</div>
       </div>
     </div>
