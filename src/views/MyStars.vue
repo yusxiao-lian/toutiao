@@ -4,7 +4,7 @@
           <span slot="left" class="iconfont iconjiantou2" @click="$router.back()"></span>
       </myheader>
       <!-- 遍历数据生成结构!!!!!!!!!!!!!! -->
-      <articleBlock v-for="item in starArticleList" :key="item.id" :postList="item"></articleBlock>
+      <articleBlock @click="$router.push({path:`/ArticleDetail/${item.id}`})" v-for="item in starArticleList" :key="item.id" :postList="item"></articleBlock>
   </div>
 </template>
 

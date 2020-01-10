@@ -67,7 +67,7 @@ export default {
     let result = await getArticleById(this.$route.params.id)
     console.log(result)
     this.article = result.data.data
-    console.log(this.article.type)
+    // console.log(this.article.type)
   },
   methods: {
     async likeArticle () {

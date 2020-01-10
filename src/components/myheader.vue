@@ -31,6 +31,9 @@ export default {
     font-weight: bold;
     text-align: center;
   }
+  .center{
+    padding: 5px;
+  }
 }
 .gray {
   background: #f2f2f2;

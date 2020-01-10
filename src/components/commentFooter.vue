@@ -1,8 +1,8 @@
 <template>
   <div class="commentFooter">
-    <div class="addcomment" v-show='!isFocus'>
-      <input type="text" placeholder="写跟帖" @focus="handlerFocus" />
-      <span class="comment">
+    <div class="addcomment"  v-show='!isFocus'  @click="handlerFocus">
+      <input type="text" placeholder="写跟帖" />
+      <span class="comment" @click="$router.push({path:`/comment/${post.id}`})">
         <i class="iconfont iconpinglun-"></i>
         <em>{{post.comment_length}}</em>
       </span>
@@ -10,33 +10,72 @@
       <i class="iconfont iconfenxiang"></i>
     </div>
     <div class="inputcomment" v-show='isFocus'>
-        <textarea  ref='commtext' rows="5" @blur='isFocus = false'></textarea>
+        <textarea  ref='commtext' rows="5" @blur='handleblur'></textarea>
         <div>
-            <span>发送</span>
+          <!-- mousedown会在失焦之前触发 -->
+            <span @mousedown="sendcomment">发送</span>
         </div>
     </div>
   </div>
 </template>
 
 <script>
-import { starArticle } from '@/apis/article.js'
+import { starArticle, replyComment } from '@/apis/article.js'
 export default {
   data () {
     return {
       isFocus: false
     }
   },
-  props: ['post'],
+  props: ['post', 'obj'],
+  // 监听
+  watch: {
+    obj () {
+      // console.log('变了！')
+      // 如果是从无值变为有值才是点击了回复，有值才让它弹框
+      if (this.obj) {
+        this.isFocus = true
+      }
+      setTimeout(() => {
+        this.$refs.commtext.focus()
+      }, 100)
+    }
+  },
   methods: {
+    // 失焦
+    handleblur () {
+      this.isFocus = false
+      this.$emit('resetobj')
+    },
     //   获取焦点时触发
     handlerFocus () {
       this.isFocus = !this.isFocus
-      this.$refs.commtext.focus()
+      setTimeout(() => {
+        this.$refs.commtext.focus()
+      }, 100)
     },
     async starArticle () {
       let result = await starArticle(this.post.id)
       this.$toast.success(result.data.message)
       this.post.has_star = !this.post.has_star
+    },
+    // 发布评论
+    async sendcomment () {
+      let data = {
+        content: this.$refs.commtext.value
+      }
+      // 如果obj发生了变化，则说明此条评论是回复别人的
+      if (this.obj) {
+        data.parent_id = this.obj.id
+      }
+      let res = await replyComment(this.post.id, data)
+      console.log(res)
+      if (res.data.message === '评论发布成功') {
+        // 发布成功之后让父组件刷新数据
+        this.$refs.commtext.value = ''
+        this.$toast.success(res.data.message)
+        this.$emit('refresh')
+      }
     }
   }
 }
@@ -87,6 +126,7 @@ export default {
   box-sizing: border-box;
   padding: 10px;
   margin-top: 20px;
+  background: #fff;
   display: flex;
   text-align: center;
   position: absolute;

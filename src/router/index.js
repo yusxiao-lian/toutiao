@@ -10,6 +10,7 @@ import register from '@/views/Register.vue'
 import articleDetail from '@/views/ArticleDetail.vue'
 import myFollow from '@/views/MyFollow.vue'
 import mystars from '@/views/MyStars.vue'
+import comment from '@/views/Comment.vue'
 // 使用路由
 Vue.use(VueRouter)
 
@@ -55,6 +56,11 @@ let router = new VueRouter({
       name: 'Mystars',
       path: '/mystars',
       component: mystars
+    },
+    {
+      name: 'Comment',
+      path: '/comment/:id',
+      component: comment
     }
   ]
 })

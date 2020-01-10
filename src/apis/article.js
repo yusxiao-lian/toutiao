@@ -9,7 +9,7 @@ export const getNewsList = (params) => {
   })
 }
 
-// 根据新闻ID获取新闻详情
+// 根据文章ID获取文章详情
 export const getArticleById = (id) => {
   return axios({
     url: `/post/${id}`
@@ -34,5 +34,22 @@ export const starArticle = (id) => {
 export const starArticleList = () => {
   return axios({
     url: '/user_star'
+  })
+}
+
+// 获取文章评论列表
+export const articleComment = (id, params) => {
+  return axios({
+    url: `/post_comment/${id}`,
+    params
+  })
+}
+
+// 发布评论
+export const replyComment = (id, data) => {
+  return axios({
+    method: 'post',
+    url: `/post_comment/${id}`,
+    data
   })
 }
