@@ -11,6 +11,7 @@ import articleDetail from '@/views/ArticleDetail.vue'
 import myFollow from '@/views/MyFollow.vue'
 import mystars from '@/views/MyStars.vue'
 import comment from '@/views/Comment.vue'
+import cateManage from '@/views/cateManage.vue'
 // 使用路由
 Vue.use(VueRouter)
 
@@ -61,6 +62,11 @@ let router = new VueRouter({
       name: 'Comment',
       path: '/comment/:id',
       component: comment
+    },
+    {
+      name: 'CateManage',
+      path: '/cateManage',
+      component: cateManage
     }
   ]
 })

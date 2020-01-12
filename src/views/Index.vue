@@ -15,7 +15,7 @@
       </div>
       <!-- 导航栏 -->
       <div class="nav">
-        <van-tabs v-model="active" sticky swipeable>
+        <van-tabs  v-model="active" sticky swipeable>
           <van-tab :title="category.name" v-for="category in categoryList" :key="category.id">
             <!-- // 上拉加载 -->
             <van-list v-model="category.loading" :immediate-check="false" :finished="category.finished"  finished-text="没有更多了" :offset="10" @load="onLoad">
@@ -59,6 +59,13 @@ export default {
     }
   },
   async mounted () {
+    // 添加分类加号点击,要用箭头函数
+    document.querySelector('.van-sticky').onclick = (e) => {
+      if (e.target.className === 'van-sticky') {
+        this.$router.push({ path: 'cateManage' })
+      }
+      return false
+    }
     // 获取登陆的用户ID
     this.id = JSON.parse(localStorage.getItem('user_info')).id
     // 获取文章分类信息
@@ -159,6 +166,18 @@ export default {
     padding: 0 10px;
     font-size: 25px;
     color: #fff;
+  }
+}
+/deep/.van-sticky{
+  position: relative;
+  padding-right: 40px;
+  &::after{
+    content: '+';
+    padding: 0;
+    font-size: 35px;
+    position: absolute;
+    right: 5px;
+    top: 0px;
   }
 }
 </style>
